@@ -49,9 +49,10 @@ training_cfg = dict(
     train_affordance = ['grasp', 'contain', 'lift', 'openable', 'layable', 'sittable',
                'support', 'wrap_grasp', 'pourable', 'move', 'displaY', 'pushable', 'pull',
                'listen', 'wear', 'press', 'cut', 'stab', 'none'],
-    val_affordance = ['grasp', 'contain', 'lift', 'openable', 'layable', 'sittable',
-               'support', 'wrap_grasp', 'pourable', 'move', 'displaY', 'pushable', 'pull',
-               'listen', 'wear', 'press', 'cut', 'stab', 'none'],
+    # val_affordance = ['grasp', 'contain', 'lift', 'openable', 'layable', 'sittable',
+    #            'support', 'wrap_grasp', 'pourable', 'move', 'displaY', 'pushable', 'pull',
+    #            'listen', 'wear', 'press', 'cut', 'stab', 'none'],
+    val_affordance = ['wrap_grasp', 'grasp'],
     weights_dir = './data/partial_view_weights.npy'
 )
 
