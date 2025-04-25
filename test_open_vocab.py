@@ -8,12 +8,12 @@ import torch
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Test model on unseen affordances")
-    parser.add_argument("--config", help="config file path")
-    parser.add_argument("--checkpoint", help="the dir to saved model")
+    parser.add_argument("--config", help="config file path", default='config/openad_pn2/full_shape_open_vocab_cfg.py')
+    parser.add_argument("--checkpoint", help="the dir to saved model", default='checkpoint/best_model_openad_pn2_estimation.t7')
     parser.add_argument(
         "--gpu",
         type=str,
-        default=None,
+        default=1,
         help="Number of gpus to use"
     )
     args = parser.parse_args()
