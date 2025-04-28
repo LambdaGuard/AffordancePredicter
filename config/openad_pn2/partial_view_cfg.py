@@ -1,14 +1,12 @@
 import os
 from os.path import join as opj
-from utils import PN2_BNMomentum, PN2_Scheduler
+from affordance_detection.utils import PN2_BNMomentum, PN2_Scheduler
 
 exp_name = "OPENAD_PN2_PARTIAL_VIEW_Release"
 work_dir = opj("./log/openad_pn2", exp_name)
 seed = 1
-try:
-    os.makedirs(work_dir)
-except:
-    print('Working Dir is already existed!')
+
+# os.makedirs(work_dir)
 
 scheduler = dict(
     type='lr_lambda',
@@ -52,7 +50,7 @@ training_cfg = dict(
     # val_affordance = ['grasp', 'contain', 'lift', 'openable', 'layable', 'sittable',
     #            'support', 'wrap_grasp', 'pourable', 'move', 'displaY', 'pushable', 'pull',
     #            'listen', 'wear', 'press', 'cut', 'stab', 'none'],
-    val_affordance = ['wrap_grasp', 'grasp'],
+    val_affordance = ['wrap_grasp', 'grasp', 'none'],
     weights_dir = './data/partial_view_weights.npy'
 )
 

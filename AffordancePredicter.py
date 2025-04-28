@@ -1,7 +1,7 @@
 import os
 from gorilla.config import Config
 from os.path import join as opj
-from utils import *
+from .utils import *
 import torch
 import open3d as o3d
 import numpy as np
@@ -25,14 +25,17 @@ class AffordancePredicter():
             exit()
         else:
             print("Loading affordance model....")
+            print("Checkpoint path: ", checkpoint_path)
             _, exten = os.path.splitext(checkpoint_path)
             if exten == '.t7':
                 self.model.load_state_dict(torch.load(checkpoint_path))
             elif exten == '.pth':
                 check = torch.load(checkpoint_path)
                 self.model.load_state_dict(check['model_state_dict'])
+            print("Affordance Model loaded successfully!")
         self.model.eval()
         self.affordance = self.cfg.training_cfg.val_affordance
+        print("Affordance categories: ", self.affordance)
 
         # run a dummy forward pass to initialize the model
         dummy_data = torch.randn(1, 3, 2048).cuda()
@@ -48,6 +51,8 @@ class AffordancePredicter():
         datas, centroid, m = pc_normalize(input_pc)
         datas = torch.from_numpy(datas).unsqueeze(0).cuda()
         datas = datas.permute(0, 2, 1).contiguous().float()
+        with torch.no_grad():
+            afford_pred = self.model(datas, self.affordance)
         afford_pred = afford_pred.permute(0, 2, 1).cpu().numpy()
         afford_pred = np.argmax(afford_pred, axis=2)[0]
         return afford_pred

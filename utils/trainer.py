@@ -5,8 +5,8 @@ import os
 from os.path import join as opj
 from tqdm import tqdm
 from tensorboardX import SummaryWriter
-from utils import *
-from utils.eval import evaluation
+from ..utils import *
+from ..utils.eval import evaluation
 from time import time
 
 

@@ -1,9 +1,9 @@
 import torch
 import numpy as np
 from torch.optim.lr_scheduler import CosineAnnealingLR, StepLR, LambdaLR, MultiStepLR
-from dataset import *
-from models import *
-import loss
+from ..dataset import *
+from ..models import *
+from .. import loss
 from torch.utils.data import DataLoader
 from torch.optim import SGD, Adam
 
