@@ -10,7 +10,7 @@ from torch.optim import SGD, Adam
 
 model_pool = {
     'openad_pn2': OpenAD_PN2,
-    'openad_dgcnn': OpenAD_DGCNN,
+    # 'openad_dgcnn': OpenAD_DGCNN,
 }
 
 optim_pool = {

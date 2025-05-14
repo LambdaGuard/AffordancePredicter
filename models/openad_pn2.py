@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
-import clip
+# import clip
+from ...ODGNet.models.text_encoder import CLIPTextEncoder
 import torch.nn.functional as F
 import numpy as np
 from .pointnet_util import PointNetSetAbstractionMsg, PointNetSetAbstraction, PointNetFeaturePropagation
@@ -10,12 +11,16 @@ class ClassEncoder(nn.Module):
     def __init__(self):
         super(ClassEncoder, self).__init__()
         self.device = torch.device('cuda')
-        self.clip_model, _ = clip.load("ViT-B/32", device=self.device)
+        self.clip_model = CLIPTextEncoder('third_party/ODGNet/clip-vit-base-patch32')
+        # self.clip_model.eval()
+        self.clip_model.cuda()
+        # self.clip_model, _ = clip.load("ViT-B/32", device=self.device, download_root="/mnt/ssd/dexterous_hand/third_party/ODGNet/clip-vit-base-patch32")
         for param in self.clip_model.parameters():
             param.requires_grad = False
     def forward(self, classes):
-        tokens = clip.tokenize(classes).to(self.device)
-        text_features = self.clip_model.encode_text(tokens).to(self.device).permute(1, 0).float()
+        # tokens = clip.tokenize(classes).to(self.device)
+        # text_features = self.clip_model.encode_text(tokens).to(self.device).permute(1, 0).float()
+        text_features = self.clip_model(classes).to(self.device).permute(1, 0).float()
         return text_features
 
 cls_encoder = ClassEncoder()
